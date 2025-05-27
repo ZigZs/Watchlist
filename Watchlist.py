@@ -1,15 +1,32 @@
 import json
 from Movie import Movie
+from Wyjątki import MovieNotFound
+
 
 class Watchlist():
     def __init__ (self, movie_list = list()):
         self.movie_list = movie_list
     
-    def addMovie(self, movie):
+    def addMovie(self, movie : Movie):
         self.movie_list.append(movie)
-        
-    def removeMovie(self, movie):
-        self.movie_list.remove(movie)
+    def addMovieUser(self):
+        title = input("Podaj tytuł ")
+        director = input("Podaj reżysera ")
+        year = input("Podaj rok produkcji ")
+        genre = input("Podaj gatunek ")
+        movie = Movie(title, director, year, genre)
+        self.addMovie(movie)
+        print("Dodano film ",movie)
+
+    def removeMovie(self, title :str):
+        znaleziony = False
+        for movie in self.movie_list:
+            if movie.title == title:
+                self.movie_list.remove(movie)
+                znaleziony = True
+        if  not znaleziony:
+            raise MovieNotFound
+
         
     def allMovies(self):
         print("wypisuje filmy")
@@ -30,14 +47,14 @@ class Watchlist():
                 loaded = json.load(file)
         self.movie_list = [Movie.from_dict(item) for item in loaded]
 
-        
+
     def search(self, title : str):
         toprint = list()
         for i in self.movie_list:
-            if title.lower() in i.title.lower():
+            if title.lower().strip() in i.title.lower():
                 toprint.append(i)
         if len(toprint)<=0:
-            print("brak filmu")
+            print("brak filmu o podanym tytule")
         else:
             print("znalezione filmy")
             for i in toprint:
