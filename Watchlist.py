@@ -29,3 +29,16 @@ class Watchlist():
         with open("data.json", "r",encoding="utf-8") as file:
                 loaded = json.load(file)
         self.movie_list = [Movie.from_dict(item) for item in loaded]
+
+        
+    def search(self, title : str):
+        toprint = list()
+        for i in self.movie_list:
+            if title.lower() in i.title.lower():
+                toprint.append(i)
+        if len(toprint)<=0:
+            print("brak filmu")
+        else:
+            print("znalezione filmy")
+            for i in toprint:
+                print(i)
