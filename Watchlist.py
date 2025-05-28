@@ -1,7 +1,7 @@
 import json
 from Movie import Movie
 from Wyjątki import *
-
+from datetime import date
 
 class Watchlist():
     reversed = False
@@ -18,11 +18,13 @@ class Watchlist():
         genre = input("Podaj gatunek ")
         status = input("Obejrzany/Nieobejrzany ")
         review = input("Ocena 1-10 ")
+        comment = input("Komentarz ")
         description = input("Opis ")
+        datewatched = input("Data obekrzenia ")
         for movie in self.movie_list:
             if title.lower().strip() in movie.title.lower().strip() and movie.year == year:
                 raise MovieAlreadyExistError
-        movie = Movie(title, director, year, genre, status,review, description=description)
+        movie = Movie(title, director, year, genre, status,review, comment, description, datewatched)
         self.addMovie(movie)
         print("Dodano film ",movie)
 
@@ -50,7 +52,7 @@ class Watchlist():
         new_description = input(f"Zmieniasz opis: {movie.description} na ") or movie.description
         movie.title = new_title
         movie.director = new_director
-        movie.year_of_production = new_year
+        movie.year = new_year
         movie.genre = new_genre
         movie.status = new_status
         movie.review = new_review
@@ -113,3 +115,10 @@ class Watchlist():
             if movie.title.lower().strip() == title.lower().strip() and movie.year == year:
                 return movie
         raise MovieNotFound
+    
+    def watched(self, title : str, year : int):
+        movie = self.findMovie(title,year)
+        movie.status = "obejrzany"
+        movie.datewatched = date.today()
+        movie.review = int("podaj ocene (1-10) ")
+        movie.comment = input("dodaj komentarz ")
