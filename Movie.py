@@ -1,8 +1,8 @@
-from Wyjątki import WrongStatusError
+from Wyjątki import WrongStatusError, ReviewTooLong
 
 
 class Movie:
-    def __init__(self, title, director, year_of_production, genre, status = "nieobejrzany", review = None, comment = "",description = "",datewatched =""):
+    def __init__(self, title, director, year_of_production, genre, status = "nieobejrzany", review = "", comment = "",description = "",datewatched =""):
         self.title = title
         self.director = director
         self._year_of_production = year_of_production
@@ -36,7 +36,15 @@ class Movie:
         if not new_status in "nieobejrzany obejrzany":
             self._status = "nieobejrzany"
             raise WrongStatusError
-
+        self._status = new_status
+    @property
+    def review(self):
+        return self.review
+    @review.setter
+    def review(self, new_review : str):
+        if len(new_review) >200:
+            raise ReviewTooLong
+        review = new_review
     def __str__(self):
         return (
             f"Tytuł:{self.title}|"
