@@ -32,7 +32,7 @@ class Movie:
         return self._review
     @review.setter
     def review(self, new_review : int):
-        if 0<=new_review<=10:
+        if not 0<=new_review<=10:
             raise WrongReviewError
         self._review = new_review
     @property
@@ -57,7 +57,7 @@ class Movie:
         return (
             f"Tytuł:{self.title}|"
             f"Reżyser:{self.director}|"
-            f"Rok:{int(self.year_of_production)}|"
+            f"Rok:{int(self.year)}|"
             f"Gatunek:{self.genre}|"
             f"Status:{self.status}|"
             f"Ocena:{self.review}|"
@@ -69,7 +69,7 @@ class Movie:
         return {
             "title":self.title,
             "director":self.director,
-            "year_of_production":self.year_of_production,
+            "year":self.year,
             "genre":self.genre,
             "status":self.status,
             "review":self.review,
@@ -81,7 +81,7 @@ class Movie:
         return cls(
             title = data.get("title"),
             director = data.get("director"),
-            year_of_production = data.get("year_of_production"),
+            year = data.get("year"),
             genre = data.get("genre"),
             status = data.get("status"),
             review = data.get("review"),
