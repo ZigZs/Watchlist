@@ -38,7 +38,7 @@ filmweb = Watchlist()
 
 #filmweb.allMovies()
 #\n Dodaj ocene i komentarz: RATE
-legenda = "Lista komend:\n Dodaj film: ADD\n Usuń film: REMOVE\n Zmień Status filmu: \n Edytuj film: EDIT\n Wyszukaj film: SEARCH\n Wyświetl wszystkie filmy: SHOWALL\n Zapisz do pliku: SAVE\n Wczytaj z pliku: LOAD\n Sortowanie: SORT\n Zmiana statusu na obejrzany: WATCHED\n Filtrowanie: FILTR\n Wyświetlenie statystyk: STATS\n Wyjdź z programu: EXIT\n"
+legenda = "Lista komend:\n Dodaj film: ADD\n Usuń film: REMOVE\n Edytuj film: EDIT\n Wyszukaj film: SEARCH\n Wyświetl wszystkie filmy: SHOWALL\n Zapisz do pliku: SAVE\n Wczytaj z pliku: LOAD\n Sortowanie: SORT\n Zmiana statusu na obejrzany: WATCHED\n Filtrowanie: FILTR\n Wyświetlenie statystyk: STATS\n Wyjdź z programu: EXIT\n"
 print("Witam w watchliście\n"+legenda)
 filmweb.load()
 while True:

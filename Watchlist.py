@@ -95,6 +95,7 @@ class Watchlist():
         with open("data.json", "r",encoding="utf-8") as file:
                 loaded = json.load(file)
         self.movie_list = [Movie.from_dict(item) for item in loaded]
+        print("Załadowano watchliste\n")
 
 
     def search(self):
