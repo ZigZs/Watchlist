@@ -37,7 +37,8 @@ filmweb = Watchlist()
 # filmweb.load()
 
 #filmweb.allMovies()
-legenda = "Lista komend:\n Dodaj film: ADD\n Usuń film: REMOVE\n Zmień Status filmu: \n Edytuj film: EDIT\n Dodaj ocene i komentarz: RATE\n Wyszukaj film: SEARCH\n Wyświetl wszystkie filmy: SHOWALL\n Zapisz do pliku: SAVE\n Wczytaj z pliku: LOAD\n Sortowanie: SORT\n Filtrowanie: FILTR\n Wyjdź z programu: EXIT\n"
+#\n Dodaj ocene i komentarz: RATE
+legenda = "Lista komend:\n Dodaj film: ADD\n Usuń film: REMOVE\n Zmień Status filmu: \n Edytuj film: EDIT\n Wyszukaj film: SEARCH\n Wyświetl wszystkie filmy: SHOWALL\n Zapisz do pliku: SAVE\n Wczytaj z pliku: LOAD\n Sortowanie: SORT\n Zmiana statusu na obejrzany: WATCHED\n Filtrowanie: FILTR\n Wyjdź z programu: EXIT\n"
 print("Witam w watchliście\n"+legenda)
 filmweb.load()
 while True:
@@ -57,9 +58,9 @@ while True:
                 rok = int(input("Podaj date produkcji tego filmu "))
                 filmweb.editMovie(tytul,rok)
                 pass
-            case "RATE":
-                
-                pass
+            # case "RATE":
+            #
+            #     pass
             case "SEARCH":
                 szukanie = input("Podaj tytuł szukanego filmu ")
                 filmweb.search(szukanie)
@@ -69,9 +70,8 @@ while True:
                 pass
             case "SAVE":
                 filmweb.save()
-                pass
-            # case "LOAD":
-            #     filmweb.load()
+            case "LOAD":
+                filmweb.load()
             case "LEGEND":
                 print(legenda)
                 pass
