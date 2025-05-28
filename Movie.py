@@ -58,35 +58,40 @@ class Movie:
         self._comment = new_comment
     def __str__(self):
         return (
-            f"Tytuł:{self.title}|"
-            f"Reżyser:{self.director}|"
-            f"Rok:{int(self.year)}|"
-            f"Gatunek:{self.genre}|"
-            f"Status:{self.status}|"
-            f"Ocena:{self.review}|"
-            f"Komentarz:{self.comment}|"
-            f"Opis:{self.description}"
+            f"Tytuł: {self.title} | "
+            f"Reżyser: {self.director} | "
+            f"Rok: {self.year} | "
+            f"Gatunek: {self.genre} | "
+            f"Status: {self.status} | "
+            f"Ocena: {self.review} | "
+            f"Komentarz: {self.comment} | "
+            f"Opis: {self.description} | "
+            f"Data obejrzenia: {self.datewatched}"
         )
         
     def to_dict(self):
         return {
-            "title":self.title,
-            "director":self.director,
-            "year":self.year,
-            "genre":self.genre,
-            "status":self.status,
-            "review":self.review,
-            "description":self.description
+            "title": self.title,
+            "director": self.director,
+            "year": self.year,
+            "genre": self.genre,
+            "status": self.status,
+            "review": self.review,
+            "comment": self.comment,
+            "description": self.description,
+            "datewatched": self.datewatched
         }
     
     @classmethod
     def from_dict(cls,data):
         return cls(
-            title = data.get("title"),
-            director = data.get("director"),
-            year = data.get("year"),
-            genre = data.get("genre"),
-            status = data.get("status"),
-            review = data.get("review"),
-            description = data.get("description")
+            title=data.get("title"),
+            director=data.get("director"),
+            year=data.get("year"),
+            genre=data.get("genre"),
+            status=data.get("status"),
+            review=data.get("review"),
+            comment=data.get("comment", ""),
+            description=data.get("description", ""),
+            datewatched=data.get("datewatched", "")
         )
