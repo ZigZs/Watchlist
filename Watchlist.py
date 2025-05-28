@@ -140,15 +140,22 @@ class Watchlist():
         if not self.movie_list:
             raise EmptyListError
         attribute = input("Podaj po czym chcesz sortować (title,director,year,genre) ")
-
         try:
-            #self.movie_list.sort([movie for movie in self.movie_list if type(getattr(x, attribute)) != type(None)])
-            [movie for movie in self.movie_list if type(getattr(movie, attribute)) != type(None)].sort(key=lambda x:getattr(x, attribute), reverse=Watchlist.reversed)
+        # Filtruj filmy, gdzie atrybut nie jest None
+            filtered_list = [movie for movie in self.movie_list if getattr(movie, attribute) is not None]
+        
+        # Sortuj i PRZYPISZ z powrotem do self.movie_list
+            self.movie_list = sorted(
+            filtered_list,
+            key=lambda x: getattr(x, attribute),
+            reverse=Watchlist.reversed
+            )
+        
             Watchlist.reversed = not Watchlist.reversed
+            print("Posortowano")
 
         except AttributeError:
-            raise AttributeError
-        print("Posortowano")
+            raise AttributeError(f"Atrybut '{attribute}' nie istnieje")
         
     def findMovie(self, title : str, year : int):
         for movie in self.movie_list:
