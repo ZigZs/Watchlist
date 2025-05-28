@@ -2,10 +2,10 @@ from Wyjątki import *
 
 
 class Movie:
-    def __init__(self, title, director, year_of_production, genre, status = "nieobejrzany", review = None, comment = "",description = "",datewatched =""):
+    def __init__(self, title, director, year, genre, status = "nieobejrzany", review = None, comment = "",description = "",datewatched =""):
         self.title = title
         self.director = director
-        self._year_of_production = year_of_production
+        self._year = year
         self.genre = genre
         self._status = status
         self._review = review
@@ -14,10 +14,10 @@ class Movie:
         self.datewatched = datewatched
     @property
     def year(self):
-        return self._year_of_production
+        return self._year
     
     @year.setter
-    def year_of_production(self, new_year):
+    def year(self, new_year):
         if not isinstance(new_year, int):
             try:
                 new_year = int(new_year)
@@ -26,7 +26,7 @@ class Movie:
                 
         if new_year < 0:
             raise ValueError
-        self._year_of_production = new_year
+        self._year = new_year
     @property
     def review(self):
         return self._review
