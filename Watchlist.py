@@ -20,7 +20,10 @@ class Watchlist():
         year = int(input("Podaj rok produkcji "))
         genre = input("Podaj gatunek ")
         status = input("Obejrzany/Nieobejrzany ")
-        review = int(input("Ocena 1-10 "))
+        try:
+            review = int(input("Ocena 1-10 "))
+        except ValueError:
+            review = None
         comment = input("Komentarz ")
         description = input("Opis ")
         datewatched = input("Data obejrzenia ")
@@ -33,25 +36,35 @@ class Watchlist():
             self.addMovie(movie)
             print("Dodano film ", movie)
             raise WrongReviewError
+        except WrongStatusError:
+            self.addMovie(movie)
+            print("Dodano film ", movie)
+            raise WrongStatusError
 
         self.addMovie(movie)
         print("Dodano film ", movie)
 
 
-    def removeMovie(self, title :str, year : int):
+    def removeMovie(self):
+        title = input("Podaj tytuł filmu do usunięcia ")
+        year = int(input("Podaj rok producji "))
         movie = self.findMovie(title,year)
         self.movie_list.remove(movie)
         print("Pomyślnie usunięto")
 
         
     def allMovies(self):
+        if not self.movie_list:
+            raise EmptyListError
         print("wypisuje filmy")
         for i in self.movie_list:
             print("---")
             print(i)
         print("---")
             
-    def editMovie(self, title : str, year : int):
+    def editMovie(self):
+        title = input("Podaj tytuł fimlu, który chcesz edytować ")
+        year = int(input("Podaj date produkcji tego filmu "))
         movie = self.findMovie(title,year)
         new_title = input(f"Zmieniasz tytuł: {movie.title} na ") or movie.title
         new_director =input(f"Zmieniasz dyrektor: {movie.director} na ") or movie.director 
@@ -83,7 +96,11 @@ class Watchlist():
         self.movie_list = [Movie.from_dict(item) for item in loaded]
 
 
-    def search(self, title : str):
+    def search(self):
+
+        if not self.movie_list:
+            raise EmptyListError
+        title = input("Podaj tytuł szukanego filmu ")
         toprint = list()
         for i in self.movie_list:
             if title.lower().strip() in i.title.lower():
@@ -94,7 +111,12 @@ class Watchlist():
             print("znalezione filmy")
             Watchlist(toprint).allMovies()
                 
-    def filtr(self, attribute : str, value):
+    def filtr(self):
+
+        if not self.movie_list:
+            raise EmptyListError
+        attribute = input("Podaj po jakim atrybucie chcesz filtorwać (title,director,year,genre) ")
+        value = input("Podaj wartość atrybutu dla jakiego chcesz filtrować ")
         try:
             filterd = list()
             if(type(value) != type(getattr(self.movie_list[0],attribute))):
@@ -112,13 +134,19 @@ class Watchlist():
             raise MovieNotFound
         return filterd
     
-    def sort(self, attribute : str):
+    def sort(self):
+        if not self.movie_list:
+            raise EmptyListError
+        attribute = input("Podaj po czym chcesz sortować (title,director,year,genre) ")
+
         try:
             #self.movie_list.sort([movie for movie in self.movie_list if type(getattr(x, attribute)) != type(None)])
             [movie for movie in self.movie_list if type(getattr(movie, attribute)) != type(None)].sort(key=lambda x:getattr(x, attribute), reverse=Watchlist.reversed)
             Watchlist.reversed = not Watchlist.reversed
+
         except AttributeError:
             raise AttributeError
+        print("Posortowano")
         
     def findMovie(self, title : str, year : int):
         for movie in self.movie_list:
@@ -126,7 +154,9 @@ class Watchlist():
                 return movie
         raise MovieNotFound
     
-    def watched(self, title : str, year : int):
+    def watched(self):
+        title = input("Podaj tytuł fimu, który obejrzałeś ")
+        year = int(input("Podaj rok filmu,który obejrzałeś"))
         movie = self.findMovie(title,year)
         movie.status = "obejrzany"
         movie.datewatched = date.today()

@@ -49,21 +49,19 @@ while True:
                 filmweb.addMovieUser()
                 pass
             case "REMOVE":
-                usuwanie = input("Podaj tytuł filmu do usunięcia ")
-                rok = int(input("Podaj rok producji "))
-                filmweb.removeMovie(usuwanie, rok)
+
+                filmweb.removeMovie()
                 pass
             case "EDIT":
-                tytul = input("Podaj tytuł fimlu, który chcesz edytować ")
-                rok = int(input("Podaj date produkcji tego filmu "))
-                filmweb.editMovie(tytul,rok)
+
+                filmweb.editMovie()
                 pass
             # case "RATE":
             #
             #     pass
             case "SEARCH":
-                szukanie = input("Podaj tytuł szukanego filmu ")
-                filmweb.search(szukanie)
+
+                filmweb.search()
                 pass
             case "SHOWALL":
                 filmweb.allMovies()
@@ -76,21 +74,18 @@ while True:
                 print(legenda)
                 pass
             case "FILTR":
-                atrybut = input("Podaj po jakim atrybucie chcesz filtorwać (title,director,year,genre) ")
-                wartosc = input("Podaj wartość atrybutu dla jakiego chcesz filtrować ")
-                tmp = Watchlist(filmweb.filtr(atrybut,wartosc))
+
+                tmp = Watchlist(filmweb.filtr())
                 tmp.allMovies()
                 pass
             case "SORT":
-                atrybut = input("Podaj po czym chcesz sortować (title,director,year,genre) ")
-                filmweb.sort(atrybut)
-                print("Posortowano")
+                filmweb.sort()
+
                 filmweb.allMovies()
                 pass
             case "WATCHED":
-                tytul = input("Podaj tytuł fimu, który obejrzałeś ")
-                rok = int(input("Podaj rok filmu,który obejrzałeś"))
-                filmweb.watched(tytul,rok)
+
+                filmweb.watched()
 
             case "STATS":
                 filmweb.stats()
