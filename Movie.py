@@ -1,5 +1,8 @@
+from Wyjątki import WrongStatusError
+
+
 class Movie:
-    def __init__(self, title, director, year_of_production, genre, status = "nieobejrzany", review = None, comment = "",description = ""):
+    def __init__(self, title, director, year_of_production, genre, status = "nieobejrzany", review = None, comment = "",description = "",datewatched =""):
         self.title = title
         self.director = director
         self._year_of_production = year_of_production
@@ -8,7 +11,7 @@ class Movie:
         self.review = review
         self.comment = comment
         self.description = description
-        
+        self.datewatched = datewatched
     @property
     def year(self):
         return self._year_of_production
@@ -24,7 +27,16 @@ class Movie:
         if new_year < 0:
             raise ValueError
         self._year_of_production = new_year
-        
+    @property
+    def status(self):
+        return self.status
+    @status.setter
+    def status(self, new_status):
+        new_status = new_status.lower()
+        if not new_status in "nieobejrzany obejrzany":
+            self._status = "nieobejrzany"
+            raise WrongStatusError
+
     def __str__(self):
         return (
             f"Tytuł:{self.title}|"
