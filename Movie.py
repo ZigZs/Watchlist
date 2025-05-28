@@ -5,11 +5,11 @@ class Movie:
     def __init__(self, title, director, year, genre, status = "nieobejrzany", review = None, comment = "",description = "",datewatched =""):
         self.title = title
         self.director = director
-        self._year = year
+        self.year = year
         self.genre = genre
-        self._status = status
-        self._review = review
-        self._comment = comment
+        self.status = status
+        self.review = review
+        self.comment = comment
         self.description = description
         self.datewatched = datewatched
     @property
@@ -32,6 +32,9 @@ class Movie:
         return self._review
     @review.setter
     def review(self, new_review : int):
+        if new_review is None:
+            self._review = None
+            return
         if not 0<=new_review<=10:
             raise WrongReviewError
         self._review = new_review
