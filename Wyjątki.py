@@ -8,5 +8,5 @@ class MovieAlreadyExistError(Exception):
     pass
 class WrongStatusError(Exception):
     pass
-class ReviewTooLong(Exception):
+class CommentTooLong(Exception):
     pass

@@ -1,4 +1,4 @@
-from Wyjątki import WrongStatusError, ReviewTooLong
+from Wyjątki import *
 
 
 class Movie:
@@ -38,13 +38,13 @@ class Movie:
             raise WrongStatusError
         self._status = new_status
     @property
-    def review(self):
-        return self.review
-    @review.setter
-    def review(self, new_review : str):
-        if len(new_review) >200:
-            raise ReviewTooLong
-        review = new_review
+    def comment(self):
+        return self.comment
+    @comment.setter
+    def comment(self, new_comment : str):
+        if len(new_comment) >200:
+            raise CommentTooLong
+        self.comment = new_comment
     def __str__(self):
         return (
             f"Tytuł:{self.title}|"
