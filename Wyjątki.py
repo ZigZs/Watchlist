@@ -6,8 +6,8 @@ class MovieNotFound(Exception):
 #     pass
 class MovieAlreadyExistError(Exception):
     pass
-class WrongStatusError(Exception):
-    pass
+# class WrongStatusError(Exception):
+#     pass
 class CommentTooLong(Exception):
     pass
 class WrongReviewError(Exception):

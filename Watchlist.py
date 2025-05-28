@@ -37,10 +37,10 @@ class Watchlist():
             self.addMovie(movie)
             print("Dodano film ", movie)
             raise WrongReviewError
-        except WrongStatusError:
-            self.addMovie(movie)
-            print("Dodano film ", movie)
-            raise WrongStatusError
+        # except WrongStatusError:
+        #     self.addMovie(movie)
+        #     print("Dodano film ", movie)
+        #     raise WrongStatusError
 
         self.addMovie(movie)
         print("Dodano film ", movie)
