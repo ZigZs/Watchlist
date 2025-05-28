@@ -120,5 +120,5 @@ class Watchlist():
         movie = self.findMovie(title,year)
         movie.status = "obejrzany"
         movie.datewatched = date.today()
-        movie.review = int("podaj ocene (1-10) ")
+        movie.review = int(input("podaj ocene (1-10) "))
         movie.comment = input("dodaj komentarz ")

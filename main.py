@@ -87,6 +87,10 @@ while True:
                 print("Posortowano")
                 filmweb.allMovies()
                 pass
+            case "WATCHED":
+                tytul = input("Podaj tutul fimu, który obejrzałeś ")
+                rok = int(input("Podaj rok filmu,który obejrzałeś"))
+                filmweb.watched(tytul,rok)
             case "EXIT":
                 print("Zamykam program")
                 break
