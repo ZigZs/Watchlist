@@ -20,7 +20,7 @@ class Watchlist():
         review = input("Ocena 1-10 ")
         comment = input("Komentarz ")
         description = input("Opis ")
-        datewatched = input("Data obekrzenia ")
+        datewatched = input("Data obejrzenia ")
         for movie in self.movie_list:
             if title.lower().strip() in movie.title.lower().strip() and movie.year == year:
                 raise MovieAlreadyExistError
@@ -50,8 +50,8 @@ class Watchlist():
         movie = self.findMovie(title,year)
         new_title = input(f"Zmieniasz tytuł: {movie.title} na ") or movie.title
         new_director =input(f"Zmieniasz dyrektor: {movie.director} na ") or movie.director 
-        new_year = (input(f"Zmienaisz rok produkcji: {movie.year} na ")) or movie.year
-        new_genre = input(f"Zmienaisz gatunek: {movie.genre} na ") or movie.genre
+        new_year = (input(f"Zmieniasz rok produkcji: {movie.year} na ")) or movie.year
+        new_genre = input(f"Zmieniasz gatunek: {movie.genre} na ") or movie.genre
         new_status = input(f"Zmieniasz status (obejrzany/nieobejrzany): {movie.status} na") or movie.status
         new_review = input(f"Zmieniasz ocena: {movie.review} na ") or movie.review
         new_description = input(f"Zmieniasz opis: {movie.description} na ") or movie.description

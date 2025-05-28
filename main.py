@@ -88,7 +88,7 @@ while True:
                 filmweb.allMovies()
                 pass
             case "WATCHED":
-                tytul = input("Podaj tutul fimu, który obejrzałeś ")
+                tytul = input("Podaj tytuł fimu, który obejrzałeś ")
                 rok = int(input("Podaj rok filmu,który obejrzałeś"))
                 filmweb.watched(tytul,rok)
             case "EXIT":
