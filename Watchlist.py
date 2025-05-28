@@ -24,9 +24,14 @@ class Watchlist():
         for movie in self.movie_list:
             if title.lower().strip() in movie.title.lower().strip() and movie.year == year:
                 raise MovieAlreadyExistError
-        movie = Movie(title, director, year, genre, status,review, comment, description, datewatched)
-        self.addMovie(movie)
-        print("Dodano film ",movie)
+        try:
+            movie = Movie(title, director, year, genre, status,review, comment, description, datewatched)
+        except WrongReviewError:
+            raise WrongReviewError
+        finally:
+            self.addMovie(movie)
+            print("Dodano film ", movie)
+
 
     def removeMovie(self, title :str, year : int):
         movie = self.findMovie(title,year)
