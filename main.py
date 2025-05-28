@@ -40,7 +40,7 @@ filmweb = Watchlist()
 #\n Dodaj ocene i komentarz: RATE
 legenda = "Lista komend:\n Dodaj film: ADD\n Usuń film: REMOVE\n Zmień Status filmu: \n Edytuj film: EDIT\n Wyszukaj film: SEARCH\n Wyświetl wszystkie filmy: SHOWALL\n Zapisz do pliku: SAVE\n Wczytaj z pliku: LOAD\n Sortowanie: SORT\n Zmiana statusu na obejrzany: WATCHED\n Filtrowanie: FILTR\n Wyświetlenie statystyk: STATS\n Wyjdź z programu: EXIT\n"
 print("Witam w watchliście\n"+legenda)
-#filmweb.load()
+filmweb.load()
 while True:
     userinput = input("Podaj komende ")
     try:
@@ -106,8 +106,8 @@ while True:
         print("Podany film jest już w bazie danych")
     except WrongReviewError:
         print("Ocena musi być w przedziale od 0 do 10")
-    except WrongStatusError:
-        print("Dozwolone statusy to obejrzany i nieobejrzany")
+    # except WrongStatusError:
+    #     print("Dozwolone statusy to obejrzany i nieobejrzany, ustawiono na nieobejrzany")
     except CommentTooLong:
         print("Maksymalna długość komentarza to 200")
     except EmptyListError:

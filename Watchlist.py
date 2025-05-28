@@ -24,6 +24,7 @@ class Watchlist():
             review = int(input("Ocena 1-10 "))
         except ValueError:
             review = None
+
         comment = input("Komentarz ")
         description = input("Opis ")
         datewatched = input("Data obejrzenia ")

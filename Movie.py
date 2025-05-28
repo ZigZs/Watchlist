@@ -41,13 +41,18 @@ class Movie:
     @property
     def status(self):
         return self._status
+
     @status.setter
     def status(self, new_status):
+        if not new_status:
+            self._status = "nieobejrzany"
+            return
         new_status = new_status.lower()
         if new_status not in ["nieobejrzany", "obejrzany"]:
             self._status = "nieobejrzany"
-            raise WrongStatusError
+
         self._status = new_status
+
     @property
     def comment(self):
         return self._comment
