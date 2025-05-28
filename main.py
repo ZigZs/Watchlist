@@ -102,3 +102,9 @@ while True:
         print("Nie znaleziono podanego atrybutu")
     except MovieAlreadyExistError:
         print("Podany film jest już w bazie danych")
+    except WrongReviewError:
+        print("Ocena musi być w przedziale od 0 do 10")
+    except WrongStatusError:
+        print("Dozwolone statusy to obejrzany i nieobejrzany")
+    except CommentTooLong:
+        print("Maksymalna długość komentarza to 200")
