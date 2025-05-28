@@ -12,3 +12,5 @@ class CommentTooLong(Exception):
     pass
 class WrongReviewError(Exception):
     pass
+class EmptyListError(Exception):
+    pass

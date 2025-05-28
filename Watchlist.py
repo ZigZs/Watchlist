@@ -2,6 +2,8 @@ import json
 from Movie import Movie
 from Wyjątki import *
 from datetime import date
+import matplotlib.pyplot as plt
+
 
 class Watchlist():
     reversed = False
@@ -17,7 +19,7 @@ class Watchlist():
         year = int(input("Podaj rok produkcji "))
         genre = input("Podaj gatunek ")
         status = input("Obejrzany/Nieobejrzany ")
-        review = input("Ocena 1-10 ")
+        review = int(input("Ocena 1-10 "))
         comment = input("Komentarz ")
         description = input("Opis ")
         datewatched = input("Data obejrzenia ")
@@ -127,3 +129,34 @@ class Watchlist():
         movie.datewatched = date.today()
         movie.review = int(input("podaj ocene (1-10) "))
         movie.comment = input("dodaj komentarz ")
+
+    def stats(self):
+        if not self.movie_list:
+            raise EmptyListError
+        genres = {}
+        for movie in self.movie_list:
+            genres[movie.genre] = genres.get(movie.genre, 0) + 1
+        plt.figure(figsize=(8, 5))
+        plt.bar(genres.keys(), genres.values())
+        plt.title("Liczba filmów w poszczególnych gatunkach")
+        plt.xlabel("Gatunek")
+        plt.ylabel("Liczba filmów")
+        plt.xticks(rotation=45, ha="right")
+        max_y = max(genres.values())
+        plt.yticks(range(0, max_y + 1))
+        plt.tight_layout()
+        plt.show()
+        status_count = {"obejrzany": 0, "nieobejrzany": 0}
+
+        for movie in self.movie_list:
+                status_count[movie.status] += 1
+
+
+        labels = list(status_count.keys())
+        sizes = list(status_count.values())
+
+        plt.figure(figsize=(6, 6))
+        plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90, colors=['#66b3ff', '#ff9999'])
+        plt.title("Rozkład statusu filmów")
+        plt.axis('equal')
+        plt.show()
