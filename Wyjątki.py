@@ -10,3 +10,5 @@ class WrongStatusError(Exception):
     pass
 class CommentTooLong(Exception):
     pass
+class WrongReviewError(Exception):
+    pass

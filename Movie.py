@@ -2,14 +2,14 @@ from Wyjątki import *
 
 
 class Movie:
-    def __init__(self, title, director, year_of_production, genre, status = "nieobejrzany", review = "", comment = "",description = "",datewatched =""):
+    def __init__(self, title, director, year_of_production, genre, status = "nieobejrzany", review = None, comment = "",description = "",datewatched =""):
         self.title = title
         self.director = director
         self._year_of_production = year_of_production
         self.genre = genre
-        self.status = status
-        self.review = review
-        self.comment = comment
+        self._status = status
+        self._review = review
+        self._comment = comment
         self.description = description
         self.datewatched = datewatched
     @property
@@ -28,23 +28,31 @@ class Movie:
             raise ValueError
         self._year_of_production = new_year
     @property
+    def review(self):
+        return self._review
+    @review.setter
+    def review(self, new_review : int):
+        if 0<=new_review<=10:
+            raise WrongReviewError
+        self._review = new_review
+    @property
     def status(self):
-        return self.status
+        return self._status
     @status.setter
     def status(self, new_status):
         new_status = new_status.lower()
-        if not new_status in "nieobejrzany obejrzany":
+        if new_status not in ["nieobejrzany", "obejrzany"]:
             self._status = "nieobejrzany"
             raise WrongStatusError
         self._status = new_status
     @property
     def comment(self):
-        return self.comment
+        return self._comment
     @comment.setter
     def comment(self, new_comment : str):
         if len(new_comment) >200:
             raise CommentTooLong
-        self.comment = new_comment
+        self._comment = new_comment
     def __str__(self):
         return (
             f"Tytuł:{self.title}|"
