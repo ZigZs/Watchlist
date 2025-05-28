@@ -1,6 +1,6 @@
 import json
 from Movie import Movie
-from Wyjątki import MovieNotFound
+from Wyjątki import *
 
 
 class Watchlist():
@@ -16,7 +16,13 @@ class Watchlist():
         director = input("Podaj reżysera ")
         year = int(input("Podaj rok produkcji "))
         genre = input("Podaj gatunek ")
-        movie = Movie(title, director, year, genre)
+        status = input("Obejrzany/Nieobejrzany ")
+        review = input("Ocena 1-10 ")
+        description = input("Opis ")
+        for movie in self.movie_list:
+            if title.lower().strip() in movie.title.lower().strip() and movie.year == year:
+                raise MovieAlreadyExistError
+        movie = Movie(title, director, year, genre, status,review, description=description)
         self.addMovie(movie)
         print("Dodano film ",movie)
 
@@ -33,15 +39,17 @@ class Watchlist():
     def allMovies(self):
         print("wypisuje filmy")
         for i in self.movie_list:
+            print("---")
             print(i)
+        print("---")
             
     def editMovie(self, title : str, year : int):
         for movie in self.movie_list:
             try:
-                if movie.title == title and movie.year_of_production == year:
+                if movie.title.lower().strip() == title.lower().strip() and movie.year == year:
                     new_title = input(f"Zmieniasz tytuł: {movie.title} na ") or movie.title
                     new_director =input(f"Zmieniasz dyrektor: {movie.director} na ") or movie.director 
-                    new_year = (input(f"Zmienaisz rok produkcji: {movie.year_of_production} na ")) or movie.year_of_production
+                    new_year = (input(f"Zmienaisz rok produkcji: {movie.year} na ")) or movie.year
                     new_genre = input(f"Zmienaisz gatunek: {movie.genre} na ") or movie.genre
                     new_status = input(f"Zmieniasz status (obejrzany/nieobejrzany): {movie.status} na") or movie.status
                     new_review = input(f"Zmieniasz ocena: {movie.review} na ") or movie.review
@@ -65,6 +73,7 @@ class Watchlist():
         toSave = [movie.to_dict() for movie in self.movie_list]
         with open("data.json","w",encoding="utf-8") as file:
             json.dump(toSave,file)
+        print("Zapisano")
                 
     def load(self):
         with open("data.json", "r",encoding="utf-8") as file:
@@ -81,13 +90,30 @@ class Watchlist():
             print("brak filmu o podanym tytule")
         else:
             print("znalezione filmy")
-            for i in toprint:
-                print(i)
+            Watchlist(toprint).allMovies()
                 
-    def filtrByGenre(self, genre : str):
-        return [movie for movie in self.movie_list if movie.genre == genre]
+    def filtr(self, attribute : str, value):
+        try:
+            filterd = list()
+            if(type(value) != type(getattr(self.movie_list[0],attribute))):
+                for movie in self.movie_list:
+                    tmp = str(getattr(movie,attribute))
+                    if (value in tmp):
+                        filterd.append(movie)
+                # value = int(value)
+                # filterd = [movie for movie in self.movie_list if value == getattr(movie,attribute)]
+            else:
+                filterd = [movie for movie in self.movie_list if value.lower().strip() in getattr(movie,attribute).lower().strip()]
+        except AttributeError:
+            raise AttributeError
+        if len(filterd) == 0:
+            raise MovieNotFound
+        return filterd
     
-    
-    def sortByYear(self):
-        self.movie_list.sort(key=lambda x: x.year_of_production, reverse=Watchlist.reversed)
-        Watchlist.reversed = not Watchlist.reversed
+    def sort(self, attribute : str):
+        try:
+            #self.movie_list.sort([movie for movie in self.movie_list if type(getattr(x, attribute)) != type(None)])
+            [movie for movie in self.movie_list if type(getattr(movie, attribute)) != type(None)].sort(key=lambda x:getattr(x, attribute), reverse=Watchlist.reversed)
+            Watchlist.reversed = not Watchlist.reversed
+        except AttributeError:
+            raise AttributeError

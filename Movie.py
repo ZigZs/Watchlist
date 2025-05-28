@@ -1,18 +1,19 @@
 class Movie:
-    def __init__(self, title, director, year_of_production, genre, status = "nieobejrzany", review = None, description = ""):
+    def __init__(self, title, director, year_of_production, genre, status = "nieobejrzany", review = None, comment = "",description = ""):
         self.title = title
         self.director = director
         self._year_of_production = year_of_production
         self.genre = genre
         self.status = status
         self.review = review
+        self.comment = comment
         self.description = description
         
     @property
-    def year_of_production(self):
+    def year(self):
         return self._year_of_production
     
-    @year_of_production.setter
+    @year.setter
     def year_of_production(self, new_year):
         if not isinstance(new_year, int):
             try:
@@ -32,6 +33,7 @@ class Movie:
             f"Gatunek:{self.genre}|"
             f"Status:{self.status}|"
             f"Ocena:{self.review}|"
+            f"Komentarz:{self.comment}|"
             f"Opis:{self.description}"
         )
         

@@ -1,12 +1,20 @@
 from Movie import Movie
 from Watchlist import Watchlist
-from Wyjątki import CommandNotFound, MovieNotFound
+from Wyjątki import *
 
-a = Movie("Test","Nolan",1999,"Akcji")
-b = Movie("Test 2","Nolan",2001,"Akcji")
-c = Movie("The Test","Nolan",2002,"Akcji")
-d = Movie("Skibidi christmas", "Zigzs",42069,"Komedia")
+
+
+# a = Movie("Test","Nolan",1999,"Akcji")
+# b = Movie("Test 2","Nolan",2001,"Akcji")
+# c = Movie("The Test","Nolan",2002,"Akcji")
+# d = Movie("Skibidi christmas", "Zigzs",42069,"Komedia")
 filmweb = Watchlist()
+# filmweb.load()
+# filmweb.addMovie(a)
+# filmweb.addMovie(b)
+# filmweb.addMovie(c)
+# filmweb.addMovie(d)
+# filmweb.save()
 # filmweb.addMovie(a)
 # filmweb.addMovie(b)
 # filmweb.addMovie(c)
@@ -29,7 +37,7 @@ filmweb = Watchlist()
 # filmweb.load()
 
 #filmweb.allMovies()
-legenda = "Lista komend:\n Dodaj film: ADD\n Usuń film: REMOVE\n Zmień Status filmu: \n Edytuj film: EDIT\n Dodaj ocene i komentarz: RATE\n Wyszukaj film: SEARCH\n Wyświetl wszystkie filmy: SHOWALL\n Zapisz do pliku: SAVE\n Wczytaj z pliku: LOAD\n Wyjdź z programu: EXIT\n"
+legenda = "Lista komend:\n Dodaj film: ADD\n Usuń film: REMOVE\n Zmień Status filmu: \n Edytuj film: EDIT\n Dodaj ocene i komentarz: RATE\n Wyszukaj film: SEARCH\n Wyświetl wszystkie filmy: SHOWALL\n Zapisz do pliku: SAVE\n Wczytaj z pliku: LOAD\n Sortowanie: SORT\n Filtrowanie: FILTR\n Wyjdź z programu: EXIT\n"
 print("Witam w watchliście\n"+legenda)
 filmweb.load()
 while True:
@@ -67,12 +75,16 @@ while True:
                 print(legenda)
                 pass
             case "FILTR":
-                warunek = input("Podaj gatunek dla którego chcesz posortować")
-                tmp = Watchlist(filmweb.filtrByGenre(warunek))
+                atrybut = input("Podaj po jakim atrybucie chcesz filtorwać (title,director,year,genre) ")
+                wartosc = input("Podaj wartość atrybutu dla jakiego chcesz filtrować ")
+                tmp = Watchlist(filmweb.filtr(atrybut,wartosc))
                 tmp.allMovies()
                 pass
             case "SORT":
-                filmweb.sortByYear()
+                atrybut = input("Podaj po czym chcesz sortować (title,director,year,genre) ")
+                filmweb.sort(atrybut)
+                print("Posortowano")
+                filmweb.allMovies()
                 pass
             case "EXIT":
                 print("Zamykam program")
@@ -85,3 +97,7 @@ while True:
         print("Film nie znaleziony")
     except ValueError:
         print("Błędny rok produkcji, musi być liczbą naturalna")
+    except AttributeError:
+        print("Nie znaleziono podanego atrybutu")
+    except MovieAlreadyExistError:
+        print("Podany film jest już w bazie danych")
