@@ -49,7 +49,8 @@ while True:
                 pass
             case "REMOVE":
                 usuwanie = input("Podaj tytuł filmu do usunięcia ")
-                filmweb.removeMovie(usuwanie)
+                rok = int(input("Podaj rok producji "))
+                filmweb.removeMovie(usuwanie, rok)
                 pass
             case "EDIT":
                 tytul = input("Podaj tytuł fimlu, który chcesz edytować ")

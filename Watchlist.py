@@ -26,14 +26,10 @@ class Watchlist():
         self.addMovie(movie)
         print("Dodano film ",movie)
 
-    def removeMovie(self, title :str):
-        znaleziony = False
-        for movie in self.movie_list:
-            if movie.title == title:
-                self.movie_list.remove(movie)
-                znaleziony = True
-        if  not znaleziony:
-            raise MovieNotFound
+    def removeMovie(self, title :str, year : int):
+        movie = self.findMovie(title,year)
+        self.movie_list.remove(movie)
+        print("Pomyślnie usunięto")
 
         
     def allMovies(self):
@@ -44,28 +40,22 @@ class Watchlist():
         print("---")
             
     def editMovie(self, title : str, year : int):
-        for movie in self.movie_list:
-            try:
-                if movie.title.lower().strip() == title.lower().strip() and movie.year == year:
-                    new_title = input(f"Zmieniasz tytuł: {movie.title} na ") or movie.title
-                    new_director =input(f"Zmieniasz dyrektor: {movie.director} na ") or movie.director 
-                    new_year = (input(f"Zmienaisz rok produkcji: {movie.year} na ")) or movie.year
-                    new_genre = input(f"Zmienaisz gatunek: {movie.genre} na ") or movie.genre
-                    new_status = input(f"Zmieniasz status (obejrzany/nieobejrzany): {movie.status} na") or movie.status
-                    new_review = input(f"Zmieniasz ocena: {movie.review} na ") or movie.review
-                    new_description = input(f"Zmieniasz opis: {movie.description} na ") or movie.description
-                    movie.title = new_title
-                    movie.director = new_director
-                    movie.year_of_production = new_year
-                    movie.genre = new_genre
-                    movie.status = new_status
-                    movie.review = new_review
-                    movie.description = new_description
-                    print(movie)
-                    return
-            except ValueError:
-                raise ValueError
-            raise MovieNotFound
+        movie = self.findMovie(title,year)
+        new_title = input(f"Zmieniasz tytuł: {movie.title} na ") or movie.title
+        new_director =input(f"Zmieniasz dyrektor: {movie.director} na ") or movie.director 
+        new_year = (input(f"Zmienaisz rok produkcji: {movie.year} na ")) or movie.year
+        new_genre = input(f"Zmienaisz gatunek: {movie.genre} na ") or movie.genre
+        new_status = input(f"Zmieniasz status (obejrzany/nieobejrzany): {movie.status} na") or movie.status
+        new_review = input(f"Zmieniasz ocena: {movie.review} na ") or movie.review
+        new_description = input(f"Zmieniasz opis: {movie.description} na ") or movie.description
+        movie.title = new_title
+        movie.director = new_director
+        movie.year_of_production = new_year
+        movie.genre = new_genre
+        movie.status = new_status
+        movie.review = new_review
+        movie.description = new_description
+        print(movie)
 
 
                             
@@ -117,3 +107,9 @@ class Watchlist():
             Watchlist.reversed = not Watchlist.reversed
         except AttributeError:
             raise AttributeError
+        
+    def findMovie(self, title : str, year : int):
+        for movie in self.movie_list:
+            if movie.title.lower().strip() == title.lower().strip() and movie.year == year:
+                return movie
+        raise MovieNotFound
