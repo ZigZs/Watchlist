@@ -16,6 +16,7 @@ class Watchlist():
     def addMovieUser(self):
         title = input("Podaj tytuł ")
         director = input("Podaj reżysera ")
+
         year = int(input("Podaj rok produkcji "))
         genre = input("Podaj gatunek ")
         status = input("Obejrzany/Nieobejrzany ")
@@ -29,10 +30,12 @@ class Watchlist():
         try:
             movie = Movie(title, director, year, genre, status,review, comment, description, datewatched)
         except WrongReviewError:
-            raise WrongReviewError
-        finally:
             self.addMovie(movie)
             print("Dodano film ", movie)
+            raise WrongReviewError
+
+        self.addMovie(movie)
+        print("Dodano film ", movie)
 
 
     def removeMovie(self, title :str, year : int):
@@ -159,4 +162,21 @@ class Watchlist():
         plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90, colors=['#66b3ff', '#ff9999'])
         plt.title("Rozkład statusu filmów")
         plt.axis('equal')
+        plt.show()
+        years_count = {}
+
+        for movie in self.movie_list:
+            years_count[movie.year] = years_count.get(movie.year, 0) + 1
+
+        lata = sorted(years_count.keys())
+        liczby = [years_count[year] for year in lata]
+
+        plt.figure(figsize=(10, 5))
+        plt.plot(lata, liczby, marker='o')
+        plt.title("Liczba filmów według roku produkcji")
+        plt.xlabel("Rok produkcji")
+        plt.ylabel("Liczba filmów")
+        plt.grid(True)
+        plt.xticks(rotation=45)
+        plt.tight_layout()
         plt.show()
